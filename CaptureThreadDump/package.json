@@ -1,0 +1,15 @@
+{
+  "name": "Test",
+  "version": "0.0.2",
+  "icon_url": "icon.png",
+  "keywords":  "Test",
+  "category": "banking",
+  "short_description": "Test",
+  "long_description": "Test",
+  "authors": ["Instabase"],
+  "beta": true,
+  "solution_type": "ibflowbin",
+  "encryption_config": {
+    "encryption_type": "v1"
+  }
+}

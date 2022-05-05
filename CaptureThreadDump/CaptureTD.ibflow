@@ -1,0 +1,24 @@
+{
+  "rootDir": ".",
+  "steps": [
+    {
+      "kwargs": {
+        "file_type": "txt",
+        "output_file_extension": "txt",
+        "input_folder": "input",
+        "output_folder": "out/s1_apply_udf",
+        "custom_formula": "stacktraces()",
+        "settings": {
+          "scripts_dir": "scripts",
+          "process_unit": "per_file"
+        }
+      },
+      "option": {
+        "internalName": "apply_udf",
+        "name": "Apply UDF"
+      },
+      "index": 0,
+      "stepNum": 1
+    }
+  ]
+}
