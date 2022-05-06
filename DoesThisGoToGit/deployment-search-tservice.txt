@@ -1,0 +1,123 @@
+Name:                   deployment-search-tservice
+Namespace:              ducoe-prod
+CreationTimestamp:      Fri, 04 Feb 2022 16:53:19 +0000
+Labels:                 app=search-tservice-prod
+                        version=v1
+Annotations:            deployment.kubernetes.io/revision: 10
+Selector:               app=search-tservice-prod
+Replicas:               3 desired | 3 updated | 3 total | 3 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:           app=search-tservice-prod
+                    configID=v1
+                    version=v1
+  Annotations:      kubectl.kubernetes.io/restartedAt: 2022-03-04T16:47:06Z
+  Service Account:  sa-ducoe-prod
+  Containers:
+   search-tservice:
+    Image:       harbor-pks-prod01.server.rbsgrp.net/ducoe/search-tservice:21.12.0-82a3d65172
+    Ports:       7600/TCP, 9080/TCP
+    Host Ports:  0/TCP, 0/TCP
+    Limits:
+      cpu:     500m
+      memory:  512Mi
+    Requests:
+      cpu:      100m
+      memory:   512Mi
+    Liveness:   exec [/bin/grpc_health_probe -addr=:7600] delay=60s timeout=10s period=10s #success=1 #failure=3
+    Readiness:  exec [/bin/grpc_health_probe -addr=:7600] delay=60s timeout=10s period=10s #success=1 #failure=3
+    Environment:
+      LOG_LEVEL:                                    INFO
+      GET_HOSTS_FROM:                               dns
+      CONFIG_TYPE:                                  prod
+      S3_USE_SIGV4:                                 True
+      ENABLE_DOC_SEARCH:                            False
+      DOCUMENT_INDEX_NUM_OF_SHARDS:                 1
+      ES_PROVIDER:                                  k8s
+      ES_URL_SCHEME:                                http
+      ES_K8S_SERVER:                                service-elasticsearch.ducoe-prod.svc.cluster.local
+      ES_K8S_PORT:                                  9200
+      ES_AWS_SERVER:                                
+      ES_AWS_REGION:                                
+      ES_AWS_ACCESS_KEY_ID:                         
+      ES_AWS_SECRET_ACCESS_KEY:                     
+      ES_LIFECYCLE_USE_ILM_INDICES:                 True
+      ES_USERNAME:                                  elastic
+      ES_PASSWORD:                                  jikkfPKF9KoEEPUn837DE
+      ES_TLS_ENABLE:                                False
+      ES_TLS_SKIP_VERIFY:                           True
+      ES_INDEX_PREFIX:                              
+      ES_ENABLE_SNIFF:                              False
+      ES_ENABLE_HEALTHCHECK:                        False
+      FS_SYSTEM_NAME:                               <set to the key 'fs_system_name' in secret 'fs-metadata'>  Optional: false
+      TSERVICE_FILE_HOST:                           service-file-tservice
+      TSERVICE_FILE_PORT:                           9900
+      INDEXER_DOCUMENT_BATCH_SIZE:                  200
+      INDEXER_FLUSH_INTERVAL_IN_MS:                 5000
+      INDEXER_RATE_LIMIT_DOCS_PER_SEC:              25
+      WALKER_MAX_NUM_DIRS_PER_WALK:                 10
+      WALKER_MAX_NUM_FILES_PER_WALK:                500000
+      WALKER_LIST_DIR_PAGE_SIZE:                    100
+      WALKER_TASK_EXPORTER_TYPE:                    BLACK_HOLE
+      WALKER_EMIT_REPO_TASK_BATCH_SIZE:             5
+      WALKER_POLL_PERIOD_IN_SEC:                    900
+      GRPC_MAX_CONNECTION_AGE_SECONDS:              300
+      RABBIT_MQ_USERNAME:                           1nstabase
+      RABBIT_MQ_PASSWORD:                           cve2rsVGmHaY
+      RABBIT_MQ_URL:                                service-rabbitmq
+      RABBIT_MQ_PORT:                               5672
+      AMQP_PREFETCH_COUNT:                          1
+      USE_AWS_ACCESS_CREDS:                         False
+      COMMIT_AUDIT_LOGS_TO_DB:                      False
+      INDEX_AUDIT_LOGS:                             True
+      ENABLE_FLOW_METRICS_REPORTING:                True
+      SITE_SETTING_SITE_ADMIN_CAN_ACCESS_ALL_ORGS:  False
+      APP_REGISTRY_PATH:                            /apps.json
+      STATS_ENABLE:                                 True
+      STATS_SERVICE_NAME:                           search_tservice
+      CACHE_HOST:                                   service-redis
+      CACHE_PROVIDER:                               redis
+      CACHE_PASSWORD:                               85e5f1c3559ca0555baf7b6b0f8915e2
+      CACHE_SENTINEL_HOST:                          
+      CACHE_ENABLE_TLS:                             False
+      CACHE_SSL_KEYFILE:                            
+      CACHE_SSL_CERTFILE:                           
+      CACHE_SSL_CACERTFILE:                         
+      CACHE_CLIENT_STATS_ENABLED:                   False
+      CACHE_PREFIX:                                 search-service-prod-
+      INSTABASE_BACKEND_DB_PARAMS:                  --dialect=oci8 --database=<USERNAME>/<PASSWORD>@<SERVER_URL>:<DB_PORT>/<DB_NAME>
+      DB_MAX_IDLE_CONNS:                            100
+      DB_MAX_OPEN_CONNS:                            100
+      DB_CONN_MAX_LIFETIME_IN_SEC:                  0
+      DB_CONN_MAX_IDLE_TIME_IN_SEC:                 0
+      DB_TEST_INIT_CONN:                            False
+      DB_ENABLE_VERBOSE_LOG:                        False
+      DB_TLS_ENABLE:                                False
+      DB_TLS_ROOT_CERT_PATH:                        
+      DB_TLS_ENABLE_CLIENT_CERT:                    False
+      DB_TLS_CLIENT_KEY_PATH:                       
+      DB_TLS_CLIENT_CERT_PATH:                      
+      DB_TLS_CERT_HOSTNAME:                         
+      DB_TLS_SKIP_VERIFY:                           False
+      DB_AZURE_AD_CERT_ENABLE:                      False
+      DB_AZURE_AD_CERT_PATH:                        
+      DB_AZURE_AD_CERT_PASSWORD:                    
+      DB_AZURE_AD_KEY_PATH:                         
+      RELEASE_VERSION:                              21.12.0
+      RELEASE_BRANCH:                               release-21.12.0
+      RELEASE_TAG:                                  release-2019-12-02.0-8245-gbbf2b65b75
+      RELEASE_COMMIT_ID:                            bbf2b65b75beb9f3dcd8fb7ef74d655c2af1a1d4
+      RELEASE_USERNAME:                             sadananda.aithal
+      RELEASE_TIMESTAMP:                            Thu Dec  9 12:09:19 IST 2021
+    Mounts:                                         <none>
+  Volumes:                                          <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Progressing    True    NewReplicaSetAvailable
+  Available      True    MinimumReplicasAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   deployment-search-tservice-5645d8b6f (3/3 replicas created)
+Events:          <none>
