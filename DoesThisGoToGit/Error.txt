@@ -7,3 +7,7 @@ Traceback:
     json.dumps(request), model_service_pb2.RunModelRequest())))
   File "/instabase/workers/celery-app-tasks/py/instabase/model_service/sdk.py", line 101, in wrapper
     raise ModelServiceException(e) from None
+
+
+
+    This change should go to GIT +++++++++++++++++++++++
